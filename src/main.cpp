@@ -16,10 +16,11 @@ int main(void)
         // Event handling
         //----------------------------------------------------------------------------------
         // maybe get mouse pos and make boids move away from it?
+        Vector2 mousePos = GetMousePosition();
 
         // Update
         //----------------------------------------------------------------------------------
-        flock.Update();
+        flock.Update(mousePos);
 
         // Draw
         //----------------------------------------------------------------------------------

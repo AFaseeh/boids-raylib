@@ -9,10 +9,10 @@ void Flock::Init(int initialCount, Vector2 screen)
     }
 }
 
-void Flock::Update()
+void Flock::Update(const Vector2& mousePos)
 {
     for (auto& boid : boids) {
-        boid.Update(boids);
+        boid.Update(boids, mousePos);
     }
 }
 

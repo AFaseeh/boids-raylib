@@ -13,6 +13,8 @@ float Boid::maxX = 0.0f;
 float Boid::minY = 0.0f;
 float Boid::maxY = 0.0f;
 float Boid::turnFactor = 0.0f;
+float Boid::mouseSeparationDistance = 0.0f;
+float Boid::mouseSeparationFactor = 0.0f;
 
 void Boid::InitSimulation(Vector2 screen)
 {
@@ -25,10 +27,13 @@ void Boid::InitSimulation(Vector2 screen)
     perceptionRadius = 50.0f;
     seperationDistance = 20.0f;
 
+    
     coherenceFactor = 0.005f;
     separationFactor = 0.1f;
     alignmentFactor = 0.025f;
-
+    
+    mouseSeparationDistance = 100.0f;
+    mouseSeparationFactor = 0.25;
     turnFactor = 3;
 }
 
@@ -52,13 +57,14 @@ Boid::Boid()
     this->velocity = Vector2{speed * cosf(angle), speed * sinf(angle)};
 }
 
-void Boid::Update(const std::vector<Boid>& boids)
+void Boid::Update(const std::vector<Boid>& boids, const Vector2& mousePos)
 {
     Vector2 close = {0.0f, 0.0f};
     Vector2 velocityAvg = {0.0f, 0.0f};
     Vector2 positionAvg = {0.0f, 0.0f};
     int neighbors = 0;
 
+    Vector2 mouseClose = (Vector2Distance(position, mousePos) < mouseSeparationDistance ? (position - mousePos) : Vector2{0.0f, 0.0f});
     for (const auto& other : boids)
     {
         if (this == &other) continue;
@@ -81,7 +87,7 @@ void Boid::Update(const std::vector<Boid>& boids)
 
 
     }
-    this->velocity += close * Boid::separationFactor;
+    this->velocity += close * Boid::separationFactor + mouseClose * Boid::mouseSeparationFactor;
     if (neighbors > 0)
     {
         velocityAvg /= neighbors;

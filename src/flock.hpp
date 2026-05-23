@@ -9,6 +9,6 @@ private:
 public:
     void Init(int initialCount, Vector2 screen);
     
-    void Update();
+    void Update(const Vector2& mousePos);
     void Draw();
 };
