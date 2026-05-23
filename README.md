@@ -2,6 +2,8 @@
 
 A C/C++ implementation of Craig Reynolds' Boids algorithm, simulating the emergent flocking behavior of birds using the Raylib graphics library.
 
+![Demo GIF](assets/boids.gif)
+
 ## Getting Started
 
 ### Prerequisites
