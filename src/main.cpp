@@ -1,29 +1,34 @@
 #include "raylib.h"
+#include "flock.hpp"
 
 int main(void)
 {
-    const int screenWidth = 800;
-    const int screenHeight = 450;
+    const Vector2 screen = {1920, 1080};
 
-    InitWindow(screenWidth, screenHeight, "Boids Simulation");
+    InitWindow(screen.x, screen.y, "Boids Simulation");
 
-    SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
-    //--------------------------------------------------------------------------------------
+    SetTargetFPS(60);
 
-    // Main game loop
-    while (!WindowShouldClose())    // Detect window close button or ESC key
+    Flock flock;
+    flock.Init(750, screen);
+    while (!WindowShouldClose())
     {
+        // Event handling
+        //----------------------------------------------------------------------------------
+        // maybe get mouse pos and make boids move away from it?
+
         // Update
         //----------------------------------------------------------------------------------
-        // TODO: Update your variables here
-        //----------------------------------------------------------------------------------
+        flock.Update();
 
         // Draw
         //----------------------------------------------------------------------------------
         BeginDrawing();
+        ClearBackground(RAYWHITE);
 
-            ClearBackground(RAYWHITE);
+        flock.Draw();
 
+        
         EndDrawing();
         //----------------------------------------------------------------------------------
     }
